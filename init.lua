@@ -12,6 +12,10 @@ vim.cmd [[packadd packer.nvim]]
 --MOUSE SCROLL
 vim.cmd([[set mouse=a]])
 --KEY MAPS
+vim.cmd([[nmap <silent> <c-s>     :w<CR>]])
+vim.cmd([[nmap <silent> <c-Right> :bnext<CR>]])
+vim.cmd([[nmap <silent> <c-Left>  :bprev<CR>]])
+vim.cmd([[nmap <silent> <c-n>     :NeoTreeFocusToggle<CR>]])
 --LINE NUMBERS
 vim.cmd([[set relativenumber]])
 --PLUGINS
@@ -131,12 +135,31 @@ return require('packer').startup(function(use)
         })
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
         local lspconfig = require'lspconfig'
+        
         lspconfig.clangd.setup {
             capabilities = capabilities
         }
-        lspconfig.rust_analyzer.setup {    
-            capabilities = capabilities
-        }
+	lspconfig.rust_analyzer.setup {
+	    on_attach=on_attach,
+	    settings = {
+		["rust-analyzer"] = {
+		    imports = {
+			granularity = {
+			    group = "module",
+			},
+			prefix = "self",
+		    },
+		    cargo = {
+			buildScripts = {
+			    enable = true,
+			},
+		    },
+		    procMacro = {
+			enable = true
+		    },
+		}
+	    }
+	}
         lspconfig.pyright.setup {
             capabilities = capabilities
         }
