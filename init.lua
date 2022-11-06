@@ -1,12 +1,17 @@
 --THEME
 vim.cmd([[set termguicolors]])
+<<<<<<< HEAD
 vim.o.background=dark
+=======
+vim.cmd([[set background=dark]])
+>>>>>>> main
 vim.cmd([[set number]])
 -- 4 SPACE TAB
 vim.cmd([[set tabstop=4]])
 vim.cmd([[set shiftwidth=4]])
 vim.cmd([[set softtabstop=4]])
 vim.cmd([[set expandtab]])
+<<<<<<< HEAD
 --OPT MODE
 vim.cmd [[packadd packer.nvim]]
 --MOUSE SCROLL
@@ -21,11 +26,21 @@ vim.cmd([[set relativenumber]])
 --PLUGINS
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
+=======
+--MOUSE SCROLL
+vim.cmd([[set mouse=a]])
+--PLUGINS
+return require('packer').startup(function(use)
+	use 'wbthomason/packer.nvim'
+	use 'kyazdani42/nvim-palenight.lua'
+	use 'ellisonleao/gruvbox.nvim'
+>>>>>>> main
     --LUALINE
     use {
     	'nvim-lualine/lualine.nvim',
     	requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
+<<<<<<< HEAD
     require('lualine').setup({
         options = {
             theme = 'auto'
@@ -41,17 +56,30 @@ return require('packer').startup(function(use)
 	use {
         'ellisonleao/gruvbox.nvim',
     }
+=======
+    --INDENT LINES
+
+    require("packer").startup(function()
+        use "lukas-reineke/indent-blankline.nvim"
+    end)
+    --THEMES
+>>>>>>> main
     require("gruvbox").setup({
 		undercurl = false,
 		underline = false,
 		bold = true,
 		italic = false
 	})
+<<<<<<< HEAD
 	vim.cmd([[colorscheme gruber]])
     
     use {
         'shaunsingh/nyoom.nvim'
     }
+=======
+	vim.cmd([[colorscheme gruvbox]])
+	
+>>>>>>> main
     --NEO TREE
 	use {
         "nvim-neo-tree/neo-tree.nvim",
@@ -89,11 +117,19 @@ return require('packer').startup(function(use)
         additional_vim_regex_highlighting = true,
         },
     }
+<<<<<<< HEAD
 
     --BUFFERLINE ON TOP
     use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'kyazdani42/nvim-web-devicons'}
     require("bufferline").setup{}
 
+=======
+    
+    --BUFFERLINE ON TOP
+    use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'kyazdani42/nvim-web-devicons'}
+    require("bufferline").setup{}
+    
+>>>>>>> main
     --AUTOCOMPLETE
     use 'neovim/nvim-lspconfig'
     use 'hrsh7th/cmp-nvim-lsp'
@@ -103,11 +139,16 @@ return require('packer').startup(function(use)
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-vsnip'
     use 'hrsh7th/vim-vsnip'
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> main
     local cmp = require'cmp'
 
     cmp.setup({
         snippet = {
+<<<<<<< HEAD
             -- REQUIRED - you must specify a snippet engine
             expand = function(args)
             vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
@@ -181,6 +222,47 @@ return require('packer').startup(function(use)
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
     requires = { {'nvim-lua/plenary.nvim'} }
     }
+=======
+        -- REQUIRED - you must specify a snippet engine
+        expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        end,
+        },
+        window = {
+            completion = cmp.config.window.bordered()
+        },
+        mapping = cmp.mapping.preset.insert({
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-e>'] = cmp.mapping.abort(),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          ['<Right>'] = cmp.mapping.confirm({ select = true }),
+        }),
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'vsnip' }, -- For vsnip users.
+        }, {
+          { name = 'buffer' },
+        })
+    })
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    local lspconfig = require'lspconfig'
+    lspconfig.ccls.setup {
+        init_options = {
+            compilationDatabaseDirectory = "build";
+            index = {
+                threads = 0;
+            };
+            clang = {
+                excludeArgs = { "-frounding-math"} ;
+            };
+        }
+    }
+    lspconfig.rust_analyzer.setup {}
+    lspconfig.pyright.setup {}
+    capabilities = capabilities
+>>>>>>> main
 end)
 
 
